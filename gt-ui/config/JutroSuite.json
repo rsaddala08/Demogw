@@ -1,0 +1,5 @@
+{
+  "features": "acceptancetests/behaviortests/features/CodelessForm.feature",
+  "tags" : "@CodelessFormTest",
+  "glue" : "acceptancetests/behaviortests/steps/CodelessFormSteps.js"
+}

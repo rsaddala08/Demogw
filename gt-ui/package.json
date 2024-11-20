@@ -1,0 +1,56 @@
+{
+  "name": "@gtui/gt-ui",
+  "version": "2022.9.0",
+  "description": "Guidewire UI Testing Framework",
+  "scripts": {
+    "ignite": "scripts/runtime/runIgnite.js",
+    "report": "gt-ui-bdd-html-report-generator",
+    "prepareXMLBehaviorReport": "gt-ui-bdd-xml-report-generator",
+    "prepareTestCafeLogCorrelationReport": "gt-ui-xml-dd-report-generator",
+    "prepareBDDLogCorrelationReport": "gt-ui-bdd-dd-xml-report-generator",
+    "gt-ui-tests": "tsc --project config/tsconfig.json &&  gt-ui-tests",
+    "gt-ui-dev-tests": "tsc --project config/tsconfig.json &&  gt-ui-dev-tests",
+    "forceResolutions": "npx npm-force-resolutions",
+    "prepublishOnly": "node scripts/build/timestamp-version-generator",
+    "build-typescript": "tsc --project config/tsconfig.json",
+    "build-testdata": "node scripts/build/build-testdata-module"
+  },
+  "keywords": [],
+  "author": "pod-gotham",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "12.20.15",
+    "moment": "2.29.4",
+    "npm-force-resolutions": "0.0.10",
+    "rimraf": "3.0.2",
+    "semver": "5.4.1"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "7.3.0",
+    "@gtui/gt-ui-framework": "file:../libs/gt-ui-framework-2022.9.0.tgz",
+    "@gtui/ignite": "file:../libs/ignite-2022.5.0.tgz",
+    "gherkin-testcafe": "5.0.1",
+    "java": "0.12.2",
+    "junit-report-builder": "3.0.0",
+    "lodash": "4.17.21",
+    "minimist": "1.2.6",
+    "node-gyp": "8.2.0",
+    "testcafe": "1.19.0"
+  },
+  "resolutions": {
+    "kind-of": "6.0.3",
+    "lodash": "4.17.21",
+    "debug": "4.3.4",
+    "glob-parent": "6.0.2",
+    "commander": "9.0.0",
+    "tar": "6.1.9",
+    "set-value": "4.0.1",
+    "ansi-regex": "5.0.1",
+    "semver-regex": "4.0.2",
+    "shelljs": "0.8.5",
+    "follow-redirects": "1.14.9",
+    "minimist": "1.2.6",
+    "async": "3.2.4",
+    "shelljs": "0.8.5"
+  }
+}

@@ -1,0 +1,16 @@
+rootProject.name = 'gt-framework'
+include 'gt-api'
+include 'gt-ui'
+include 'gt-load'
+
+include 'gt-api:claimsolutions'
+project(':gt-api:claimsolutions').projectDir = file('gt-api/claimsolutions')
+include 'gt-api:policysolutions'
+project(':gt-api:policysolutions').projectDir = file('gt-api/policysolutions')
+
+include 'gt-load:claimsolutions'
+project(':gt-load:claimsolutions').projectDir = file('gt-load/claimsolutions')
+include 'gt-load:policysolutions'
+project(':gt-load:policysolutions').projectDir = file('gt-load/policysolutions')
+include 'gt-load:common'
+project(':gt-load:common').projectDir = file('gt-load/common')

@@ -1,0 +1,54 @@
+version releaseVersion
+
+repositories {
+    maven { url rootProject.file('../gt-load/repository') }
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+test {
+    testLogging {
+        exceptionFormat 'full'
+        events 'started', 'skipped', 'passed', 'failed'
+        showStandardStreams true
+    }
+    outputs.upToDateWhen {false}
+}
+
+dependencies {
+    implementation group: 'junit', name: 'junit', version: '4.13.2'
+}
+
+
+// Gradle task to run Gatling Load Tests
+task gatlingRun(dependsOn: jar) {
+    group = 'Gatling Simulation'
+    description = 'Run a gatling simulation'
+
+    doLast {
+        javaexec {
+            systemProperty "java.security.egd", "file:/dev/./urandom"
+            classpath = sourceSets.main.runtimeClasspath
+            main = "io.gatling.app.Gatling"
+
+            def reportDirPath = "${buildDir}/reports/gatling"
+            def gatlingReportDir = mkdir reportDirPath
+
+            args = [
+                    '-s', 'com.gw.sample.SimpleSimulation',
+                    '-rf', gatlingReportDir.canonicalPath,
+                    '-rd', 'Gatling Simulation'
+            ]
+        }
+    }
+}

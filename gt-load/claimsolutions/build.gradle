@@ -1,0 +1,53 @@
+group 'com.guidewire.gt-load'
+
+dependencies {
+    implementation project(':gt-load:common')
+}
+
+clean.doFirst {
+    delete "${buildDir}"
+    delete "target"
+}
+
+// Gradle task to run Gatling Load Tests
+task gatlingRun(dependsOn: [jar, ':gt-load:common:jar']) {
+    group = 'Gatling Simulation'
+    description = 'Run a gatling simulation'
+
+    def gtloadConfigEnvVarName = "GTLOAD_CONFIG"
+    def gtloadSimulationClassSystemParamName = "GTLOAD_SIMULATION_CLASS"
+
+    doFirst {
+        if(System.getenv(gtloadConfigEnvVarName) == null && System.getProperty(gtloadSimulationClassSystemParamName) == null) {
+            def errorMess = "${gtloadConfigEnvVarName} environment variable is required for the gradle task. " +
+                    "Try setting the environment variable by executing the command \n" +
+                    "export ${gtloadConfigEnvVarName}=<Insert GTLOAD CONFIG path>' in linux (or) \n" +
+                    "set ${gtloadConfigEnvVarName}=<Insert GTLOAD CONFIG path>' in windows\n\n" +
+                    "The other option is to pass the SimulationClass file to the gradle task " +
+                    " '-D${gtloadSimulationClassSystemParamName}=<Insert fully qualified simulationClass path here>'"
+            throw new IllegalArgumentException(errorMess)
+        } else if (System.getenv(gtloadConfigEnvVarName) != null ) {
+            System.setProperty(gtloadSimulationClassSystemParamName, "com.gw.gtload.GtLoadSimulation")
+        }
+    }
+
+    doLast {
+        javaexec {
+            systemProperties['java.security.egd'] = 'file:/dev/urandom'
+            systemProperties['user.language'] = System.getProperty('user.language','en')
+            systemProperties['user.country'] = System.getProperty('user.country','US')
+
+            classpath = sourceSets.main.runtimeClasspath
+            main = "io.gatling.app.Gatling"
+
+            def reportDirPath = "${buildDir}/reports/gatling"
+            def gatlingReportDir = mkdir reportDirPath
+
+            args = [
+                    '-s', System.getProperty(gtloadSimulationClassSystemParamName),
+                    '-rf', gatlingReportDir.canonicalPath,
+                    '-rd', 'Gatling Simulation'
+            ]
+        }
+    }
+}

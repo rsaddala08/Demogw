@@ -1,0 +1,6 @@
+group 'com.guidewire.gt-load'
+
+clean.doFirst {
+    delete "${buildDir}"
+    delete "target"
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "application": "claimcenter",
+    "moduleName": "claimsolutions",
+    "className": "com.gw.datacreation.admindata.ClaimsAdminData",
+    "methodName": "loadClaimsAdminData"
+  },
+  {
+    "application": "policycenter",
+    "moduleName": "policysolutions",
+    "className": "gw.datacreation.admindata.PolicyAdminData",
+    "methodName": "loadAdminData"
+  }
+]
+
+
